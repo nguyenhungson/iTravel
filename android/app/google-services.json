@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "27756048205",
+    "project_id": "firebase-itravel"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27756048205:android:85b515ec42a85283",
+        "android_client_info": {
+          "package_name": "com.itravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27756048205-4p7eat47jugh732k2iak26vuldnqv2i8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itravel",
+            "certificate_hash": "6d35801fb34796e7b4e59d10a75f4ab90897af50"
+          }
+        },
+        {
+          "client_id": "27756048205-8fhbve8jfukcfah562vsmvur4dah0d83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsKhaSAa-XQYicmR68CfQlp063Imgh5XE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
