@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import * as reducers from '../reducers'; //import reducers
-import HomeContainer from './HomeContainer'; //import sub container
+import HomeContainer from './MapContainer'; //import sub container
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);

@@ -41,5 +41,21 @@ module.exports = StyleSheet.create({
     },
     imgLogo:{
         width: 150
+    },
+    map_container:{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    map_view:{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     }
 });
