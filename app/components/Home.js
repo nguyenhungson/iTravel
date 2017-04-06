@@ -17,9 +17,11 @@ import {
 const FBSDK = require('react-native-fbsdk');
 const { LoginManager, GraphRequest, GraphRequestManager, AccessToken } = FBSDK;
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import MapContainer from '../containers/MapContainer';
 
 const styles = require('../utils/styles');
 const CallAPI = require('../utils/callapi');
+var Common = require('../utils/common');
 
 export default class Home extends Component {
     constructor(props) {
@@ -49,12 +51,12 @@ export default class Home extends Component {
     }
 
     loginFacebook(){
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
+        LoginManager.logInWithReadPermissions(['public_profile','email']).then(
             function(result) {
                 if (result.isCancelled) {
                     console.log("User is cancelled");
                 } else {
-                    const infoRequest = new GraphRequest('/me?fields=id,name,picture.width(200).height(200)', null, function(error, result){
+                    const infoRequest = new GraphRequest('/me?fields=id,name,email', null, function(error, result){
                         if(error){
                             console.log("ERROR >> " + error);
                         }
@@ -62,7 +64,7 @@ export default class Home extends Component {
                             AccessToken.getCurrentAccessToken().then((data) => {
                                 CallAPI.loginFacebook(data.accessToken.toString())
                                 CallAPI.action((respData) => {
-                                    
+                                    this.progressLogin(respData);
                                 });
                             });
                         }
@@ -87,7 +89,7 @@ export default class Home extends Component {
                 .then((user) => {
                     CallAPI.loginGoogle(user.idToken);
                     CallAPI.action((respData) => {
-                        
+                        this.progressLogin(respData);
                     });
                 })
                 .catch((err) => {
@@ -99,6 +101,28 @@ export default class Home extends Component {
         .catch((err) => {
             console.log("Play services error", err.code, err.message);
         })
+    }
+
+    progressLogin(respData){
+        if(respData.success == true){
+            //save access token & refresh token
+            Common.saveData("accessToken", respData.accessToken);
+            Common.saveData("refreshToken", respData.refreshToken);
+
+            //go to map
+            this.goToMap(respData.accessToken, respData.refreshToken);
+        }
+    }
+
+    goToMap(accessToken, refreshToken){
+        this.props.navigator.push({
+            name: 'MapContainer',
+            component: MapContainer,
+            passProps: {
+                accessToken: accessToken,
+                refreshToken: refreshToken
+            }
+        });
     }
 }
 
