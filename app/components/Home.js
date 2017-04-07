@@ -51,12 +51,20 @@ export default class Home extends Component {
     }
 
     loginFacebook(){
+        console.log("logIn FB");
+
+        var _this = this;
         LoginManager.logInWithReadPermissions(['public_profile','email']).then(
             function(result) {
                 if (result.isCancelled) {
                     console.log("User is cancelled");
                 } else {
-                    const infoRequest = new GraphRequest('/me?fields=id,name,email', null, function(error, result){
+                    const infoRequest = new GraphRequest('/me?fields=id,name,email,picture.width(100).height(100)', null, function(error, info){
+                        var oUser = {};
+                        oUser['name'] = info.name;
+                        oUser['picture'] = info.picture.data.url;
+                        Common.saveData("user", JSON.stringify(oUser));
+
                         if(error){
                             console.log("ERROR >> " + error);
                         }
@@ -64,7 +72,7 @@ export default class Home extends Component {
                             AccessToken.getCurrentAccessToken().then((data) => {
                                 CallAPI.loginFacebook(data.accessToken.toString())
                                 CallAPI.action((respData) => {
-                                    this.progressLogin(respData);
+                                    _this.progressLogin(respData);
                                 });
                             });
                         }
@@ -76,7 +84,8 @@ export default class Home extends Component {
             function(error) {
                 alert('Login failed with error: ' + error);
             }
-        );
+        )
+        .catch((ex) => {console.log("Error >> " + ex)});
     }
 
     loginGoogle(){
@@ -87,6 +96,11 @@ export default class Home extends Component {
             .then(() => {
                 GoogleSignin.signIn()
                 .then((user) => {
+                    var oUser = {};
+                    oUser['name'] = user.name;
+                    oUser['picture'] = user.photo;
+                    Common.saveData("user", JSON.stringify(oUser));
+
                     CallAPI.loginGoogle(user.idToken);
                     CallAPI.action((respData) => {
                         this.progressLogin(respData);
@@ -111,6 +125,9 @@ export default class Home extends Component {
 
             //go to map
             this.goToMap(respData.accessToken, respData.refreshToken);
+        }
+        else{
+            this.goToMap('', '');
         }
     }
 

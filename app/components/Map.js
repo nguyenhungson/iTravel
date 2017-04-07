@@ -13,6 +13,8 @@ import {
 
 const styles = require('../utils/styles');
 import MapView from 'react-native-maps';
+const SideMenu = require('react-native-side-menu');
+const MenuLeft = require('./MenuLeft');
 
 export default class Map extends Component {
     constructor(props) {
@@ -25,19 +27,22 @@ export default class Map extends Component {
 
     render(){
         const { state } = this.props;
+        const menu = <MenuLeft navigator={navigator}/>;
         
         return (
-            <View style={styles.map_container}>
-                <MapView
-                    style={styles.map_view}
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                />
-            </View>
+            <SideMenu menu={menu}>
+                <View style={styles.map_container}>
+                    <MapView
+                        style={styles.map_view}
+                        initialRegion={{
+                            latitude: 37.78825,
+                            longitude: -122.4324,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        }}
+                    />
+                </View>
+            </SideMenu>
         );
     }
 }

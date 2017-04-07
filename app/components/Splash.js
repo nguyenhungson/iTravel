@@ -9,7 +9,9 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  Text
+  Text,
+  ActivityIndicator,
+  Image
 } from 'react-native';
 
 const styles = require('../utils/styles');
@@ -45,8 +47,12 @@ export default class Splash extends Component {
         const { state } = this.props;
         
         return (
-            <View>
-                <Text>Splash screen</Text>
+            <View style={[styles.centering]}>
+                <Image resizeMode={'contain'} style={styles.imgLogo} source={require('../images/icon.png')} />
+                <ActivityIndicator
+                    animating={true}
+                    size={50}
+                />
             </View>
         );
     }

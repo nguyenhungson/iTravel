@@ -57,5 +57,30 @@ module.exports = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+    },
+    view_avatar:{
+        width: 72,
+        height: 72,
+        margin: 10,
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 35
+    },
+    avatar:{
+        width: 70,
+        height: 70,
+        borderRadius: 35
+    },
+    view_center_avatar:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    name_avatar:{
+        color: '#727f8c'
     }
 });
