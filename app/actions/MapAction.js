@@ -8,3 +8,11 @@ export function calSum(result){
 		value: result
 	}
 }
+
+export function getCurrentPosition(lat, long){
+	return {
+		type: types.GET_CURRENT_POSITION,
+		lat: lat,
+		long: long
+	}
+}

@@ -11,7 +11,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  ToastAndroid
 } from 'react-native';
 
 const FBSDK = require('react-native-fbsdk');
@@ -127,7 +128,7 @@ export default class Home extends Component {
             this.goToMap(respData.accessToken, respData.refreshToken);
         }
         else{
-            this.goToMap('', '');
+            ToastAndroid.show('Authentication fail', ToastAndroid.SHORT);
         }
     }
 
