@@ -8,12 +8,14 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  View
+  View,
+  DrawerLayoutAndroid,
+  Platform
 } from 'react-native';
 
-const styles = require('../utils/styles');
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
-const SideMenu = require('react-native-side-menu');
+const styles = require('../utils/styles');
 const MenuLeft = require('./MenuLeft');
 
 export default class Map extends Component {
@@ -34,30 +36,52 @@ export default class Map extends Component {
     }
 
     render(){
-        const { state } = this.props;
-        const menu = <MenuLeft navigator={navigator}/>;
-        console.log(state.curPos);
+        var menuLeft = <MenuLeft />;
+        var templateMap = this.renderMap();
         
+        if(Platform.OS == 'android'){
+            return (
+                <DrawerLayoutAndroid 
+                    drawerWidth={300}
+                    drawerPosition={DrawerLayoutAndroid.positions.Left}
+                    renderNavigationView={() => menuLeft}
+                    ref={'DRAWER_REF'}>
+                    {templateMap}
+                </DrawerLayoutAndroid>
+            );
+        }
+        else{
+            return null;
+        }
+    }
+
+    renderMap(){
+        const { state } = this.props;
+
         return (
-            <SideMenu menu={menu}>
-                <View style={styles.map_container}>
-                    <MapView
-                        key={0}
-                        style={styles.map_view}
-                        region={state.curPos}
-                    >
-                        <MapView.Marker
-                            coordinate={{
-                                latitude: state.curPos.latitude,
-                                longitude: state.curPos.longitude
-                            }}
-                            title="Your position"
-                            description="This is your position"
-                        />
-                    </MapView>
+            <View style={styles.map_container}>
+                <MapView 
+                    style={styles.map_view}
+                    region={state.curPos}
+                >
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: state.curPos.latitude,
+                            longitude: state.curPos.longitude
+                        }}
+                        title="Your position"
+                        description="This is your position"
+                    />
+                </MapView>
+                <View style={styles.map_search}>
+                    <Icon name="menu" size={30} onPress={() => this.openMenu()} />
                 </View>
-            </SideMenu>
+            </View>
         );
+    }
+
+    openMenu(){
+        this.refs['DRAWER_REF'].openDrawer();
     }
 }
 

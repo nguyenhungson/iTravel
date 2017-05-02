@@ -82,5 +82,29 @@ module.exports = StyleSheet.create({
     },
     name_avatar:{
         color: '#727f8c'
+    },
+    map_search:{
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        right: 10,
+        backgroundColor: '#fff',
+        borderRadius: 3,
+        elevation: 20,
+        padding: 5
+    },
+    menuleft_hozline:{
+        height: 1,
+        backgroundColor: '#E9EAEA',
+        marginTop: 10
+    },
+    menuleft_menulist:{
+        padding: 15,
+        flexDirection: 'row'
+    },
+    menuleft_menulist_text:{
+        color: '#414141',
+        fontSize: 18,
+        marginLeft: 20
     }
 });

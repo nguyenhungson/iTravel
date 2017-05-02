@@ -18,6 +18,8 @@ import com.facebook.appevents.AppEventsLogger;
 import java.util.Arrays;
 import java.util.List;
 
+import com.oblador.vectoricons.VectorIconsPackage;
+
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -38,8 +40,9 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new MapsPackage(),
-            new RNGoogleSigninPackage(),
+                    new MapsPackage(),
+                    new RNGoogleSigninPackage(),
+                    new VectorIconsPackage(),
                     new FBSDKPackage(mCallbackManager)
             );
         }
